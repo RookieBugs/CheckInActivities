@@ -18,23 +18,27 @@ mobile = os.getenv('Unicom_mobile')
 pwd = os.getenv('Unicom_pwd')
 
 def send_mail(mail_title='', mail_content=''):
-    host_server = 'smtp.163.com'
-    sender_mail = mail_account + '@163.com'
-    receiver_mail = '85619217@qq.com'
-    # ssl登录
-    smtp = SMTP_SSL(host_server)
-    # set_debuglevel()是用来调试的。参数值为1表示开启调试模式，参数值为0关闭调试模式
-    smtp.set_debuglevel(0)
-    smtp.ehlo(host_server)
-    smtp.login(mail_account, mail_pwd)
-    #发送邮件
-    msg = MIMEText(mail_content, "plain", 'utf-8')
-    msg["Subject"] = Header(mail_title, 'utf-8')
-    msg["From"] = sender_mail
-    msg["To"] = receiver_mail
-    smtp.sendmail(sender_mail, receiver_mail, msg.as_string())
-    smtp.quit()
-    return True
+    try:
+        host_server = 'smtp.163.com'
+        sender_mail = mail_account + '@163.com'
+        receiver_mail = '85619217@qq.com'
+        # ssl登录
+        smtp = SMTP_SSL(host_server)
+        # set_debuglevel()是用来调试的。参数值为1表示开启调试模式，参数值为0关闭调试模式
+        smtp.set_debuglevel(0)
+        smtp.ehlo(host_server)
+        smtp.login(mail_account, mail_pwd)
+        #发送邮件
+        msg = MIMEText(mail_content, "plain", 'utf-8')
+        msg["Subject"] = Header(mail_title, 'utf-8')
+        msg["From"] = sender_mail
+        msg["To"] = receiver_mail
+        smtp.sendmail(sender_mail, receiver_mail, msg.as_string())
+        smtp.quit()
+        return True
+    except Exception as err:
+        print(err)
+        return False
 
 headers = {
     'Host': 'm.client.10010.com',
