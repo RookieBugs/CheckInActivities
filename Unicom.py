@@ -12,10 +12,10 @@ from email.header import Header
 from smtplib import SMTP_SSL
 import time
 
-mail_account = os.getenv('mail_account') or ''
-mail_pwd = os.getenv('mail_pwd') or ''
-mobile = os.getenv('Unicom_mobile') or ''
-pwd = os.getenv('Unicom_pwd') or ''
+mail_account = os.getenv('mail_account')
+mail_pwd = os.getenv('mail_pwd')
+mobile = os.getenv('Unicom_mobile')
+pwd = os.getenv('Unicom_pwd')
 
 def send_mail(mail_title='', mail_content=''):
     host_server = 'smtp.163.com'
@@ -103,6 +103,7 @@ try:
         print('邮件发送失败')
 except Exception as err:
     print('自动签到任务失败')
+    print(err)
     if send_mail(mail_content=cur_time + '  自动签到任务失败\n' + '错误原因：' + str(err), mail_title=cur_date + '：联通手机营业厅APP自动签到失败'):
         print('邮件发送成功')
     else:
