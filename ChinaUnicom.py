@@ -106,10 +106,10 @@ try:
         print('邮件发送成功')
     else:
         print('邮件发送失败')
-except Exception as err:
+except Exception as e:
     print('自动签到任务失败')
-    print(err)
-    if send_mail(mail_account, mail_pwd, receiver, mail_content=cur_time + '  自动签到任务失败\n' + '错误原因：' + str(err), mail_title=cur_date + '：联通手机营业厅APP自动签到失败'):
+    print(e)
+    if send_mail(mail_account, mail_pwd, receiver, mail_content=cur_time + '  自动签到任务失败\n' + '错误原因：' + str(e), mail_title=cur_date + '：联通手机营业厅APP自动签到失败'):
         print('邮件发送成功')
     else:
         print('邮件发送失败')
