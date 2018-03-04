@@ -24,7 +24,7 @@ def send_mail(account, mailpwd, receiver_mail, mail_title='', mail_content=''):
         host_server = 'smtp.163.com'
         sender_mail = account + '@163.com'
         # ssl登录
-        smtp = SMTP_SSL(host_server)
+        smtp = SMTP_SSL(host_server, 465)
         # set_debuglevel()是用来调试的。参数值为1表示开启调试模式，参数值为0关闭调试模式
         smtp.set_debuglevel(1)
         smtp.ehlo(host_server)
@@ -37,8 +37,8 @@ def send_mail(account, mailpwd, receiver_mail, mail_title='', mail_content=''):
         smtp.sendmail(sender_mail, receiver_mail, msg.as_string())
         smtp.quit()
         return True
-    except Exception as err:
-        print(err)
+    except smtplib.SMTPException as e:
+        print(e)
         return False
 
 headers = {
