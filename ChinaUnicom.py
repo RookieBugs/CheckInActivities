@@ -21,8 +21,8 @@ receiver = os.getenv('receive')
 
 def send_mail(account, mailpwd, receiver_mail, mail_title='', mail_content=''):
     try:
-        host_server = 'smtp.163.com'
-        sender_mail = account + '@163.com'
+        host_server = 'smtp.zoho.com'
+        sender_mail = account + '@zoho.com'
         # ssl登录
         smtp = SMTP_SSL(host_server, 465)
         # set_debuglevel()是用来调试的。参数值为1表示开启调试模式，参数值为0关闭调试模式
