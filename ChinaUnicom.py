@@ -26,7 +26,7 @@ def send_mail(account, mailpwd, receiver_mail, mail_title='', mail_content=''):
         # ssl登录
         smtp = SMTP_SSL(host_server, 465)
         # set_debuglevel()是用来调试的。参数值为1表示开启调试模式，参数值为0关闭调试模式
-        smtp.set_debuglevel(1)
+        smtp.set_debuglevel(0)
         smtp.ehlo(host_server)
         smtp.login(account, mailpwd)
         #发送邮件
