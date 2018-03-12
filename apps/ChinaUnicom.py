@@ -64,7 +64,7 @@ class ChinaUnicomApp:
             isSignin_url = 'http://act.10010.com/SigninApp/signin/rewardReminder.do'
             isSignin_req = self.session.post(url=isSignin_url, headers=self.headers)
             # 进行签到/取消签到
-            signin_url = 'http://m.client.10010.com/SigninApp/signin/daySign.do'
+            signin_url = 'http://act.10010.com/SigninApp/signin/daySign.do'
             if int(isSignin_req.json()['todayIsSignin']):
                 signin_req = self.session.post(url=signin_url)
                 dailyCoin = signin_req.json()['prizeCount']
