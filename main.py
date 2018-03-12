@@ -29,7 +29,9 @@ username = b64encode(rsa_encrypt(PUB_KEY, pad_randomstr(mobile, size=6)))
 password = b64encode(rsa_encrypt(PUB_KEY, pad_randomstr(mobilepwd, size=6)))
 
 unicom = ChinaUnicomApp()
+print('进行登陆...')
 loginFlag, loginContent = unicom.login(username, password)
+print('进行签到...')
 signininFlag, signinContent = unicom.signin()
 
 date = time.strftime("%Y-%m-%d", time.localtime())
