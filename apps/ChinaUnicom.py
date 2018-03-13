@@ -11,7 +11,7 @@ import time
 
 class ChinaUnicomApp:
     def __init__(self):
-        super().__init__()
+        # super().__init__()
         self.session = requests.Session()
         self.headers = {
             'Host': 'm.client.10010.com',
