@@ -14,7 +14,6 @@ class ChinaUnicomApp:
         # super().__init__()
         self.session = requests.Session()
         self.headers = {
-            'Host': 'm.client.10010.com',
             'Accept': '*/*',
             'Content-Type': 'application/x-www-form-urlencoded',
             'Connection': 'keep-alive',
@@ -25,6 +24,7 @@ class ChinaUnicomApp:
 
     def login(self, username, password):
         cur_time1 = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        self.headers['Host'] = 'm.client.10010.com'
         self.data = {
             'version': 'iphone_c@5.7',
             'mobile': username,
