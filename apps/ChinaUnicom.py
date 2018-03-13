@@ -11,7 +11,7 @@ import time
 
 class ChinaUnicomApp:
     def __init__(self):
-        # super().__init__()
+        super().__init__()
         self.session = requests.Session()
         self.headers = {
             'Accept': '*/*',
@@ -22,7 +22,7 @@ class ChinaUnicomApp:
             'Accept-Encoding': 'gzip, deflate',
         }
 
-    def login(self, username, password):
+    def login_CU(self, username, password):
         cur_time1 = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         self.headers['Host'] = 'm.client.10010.com'
         self.data = {
@@ -44,14 +44,14 @@ class ChinaUnicomApp:
         login_url = 'http://m.client.10010.com/mobileService/login.htm'
         login_req = self.session.post(login_url, headers=self.headers, data=self.data)
         if login_req.json()['code'] == '0':
-            content_login = cur_time1 + ' APP登陆成功...\n'
+            content_login = cur_time1 + ' 联通APP签到：\n'
             return True, content_login
         else:
-            print(cur_time1 + ' APP登陆失败...')
+            print(cur_time1 + ' 联通APP登陆失败...')
             content_login = cur_time1 + '  自动签到任务失败\n' + '错误原因：APP登陆失败...\n'
             return False, content_login
 
-    def signin(self):
+    def signin_CU(self):
         try:
             cur_time2 = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             self.headers['Host'] = 'act.10010.com'
