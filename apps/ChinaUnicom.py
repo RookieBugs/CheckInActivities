@@ -7,7 +7,19 @@ Description :
 @Software   : PyCharm
 """
 import requests
+
 import time
+from base64 import b64encode
+from libs.encrypto import rsa_encrypt_CU,pad_randomstr_CU
+
+
+pubKey_CU = ('-----BEGIN PUBLIC KEY-----\n'
+                 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDc+CZK9bBA9IU+gZUOc6'
+                 'FUGu7yO9WpTNB0PzmgFBh96Mg1WrovD1oqZ+eIF4LjvxKXGOdI79JRdve9'
+                 'NPhQo07+uqGQgE4imwNnRx7PFtCRryiIEcUoavuNtuRVoBAm6qdB0Srctg'
+                 'aqGfLgKvZHOnwTjyNqjBUxzMeQlEC2czEMSwIDAQAB\n'
+                 '-----END PUBLIC KEY-----')
+
 
 class ChinaUnicomApp:
     def __init__(self):
@@ -23,17 +35,19 @@ class ChinaUnicomApp:
         }
 
     def login_CU(self, username, password):
+        username_CU = b64encode(rsa_encrypt_CU(pubKey_CU, pad_randomstr_CU(username, size=6)))
+        password_CU = b64encode(rsa_encrypt_CU(pubKey_CU, pad_randomstr_CU(password, size=6)))
         cur_time1 = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         self.headers['Host'] = 'm.client.10010.com'
         self.data = {
             'version': 'iphone_c@5.7',
-            'mobile': username,
+            'mobile': username_CU,
             'netWay': 'wifi',
             'isRemberPwd': 'true',
             'appId': '81740c90c669bda467dec2d09551b684e4e61006d6caebe41a45689995edc187',
             'deviceId': 'c65f20c8d6d2136065aa52a56ff80e8d325084b9d43aaa5d7a06e2f22894005d',
             'pip': '',
-            'password': password,
+            'password': password_CU,
             'deviceOS': '10.3.3',
             'deviceBrand': 'iphone',
             'deviceModel': 'iPhone',
