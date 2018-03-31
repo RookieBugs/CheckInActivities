@@ -67,12 +67,14 @@ if __name__=='__main__':
 
         mailtitle = date + ' 自动签到任务报告'
         mailcontent = mailcontent_CU + mailcontent_CM + mailcontent_SM
-        sys.exit(0)
+        exitCode = 0
     except Exception as e:
         mailtitle = date + ' 自动签到任务出错'
         mailcontent = '签到异常，请查看travis-ci log\n' + str(e)
-        sys.exit(1)
+        exitCode = 1
+        
 
     # 发送邮件
     SendEmail.send_mail(mailtitle, mailcontent)
     print('任务结束')
+    sys.exit(exitCode)
