@@ -7,7 +7,7 @@ python:
 script:
   - python3 test1.py
   - if [ $? == 1 ];then
-      python3 test2.py
+      python3 test2.py;
     else
-      python3 test1.py
+      python3 test1.py;
     fi;
