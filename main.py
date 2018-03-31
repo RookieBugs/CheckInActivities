@@ -8,6 +8,7 @@ Description :
 """
 
 import os
+import sys
 import time
 from libs.sendmail import SendEmail
 from apps.ChinaUnicom import ChinaUnicomApp
@@ -66,13 +67,12 @@ if __name__=='__main__':
 
         mailtitle = date + ' 自动签到任务报告'
         mailcontent = mailcontent_CU + mailcontent_CM + mailcontent_SM
+        sys.exit(0)
     except Exception as e:
         mailtitle = date + ' 自动签到任务出错'
         mailcontent = '签到异常，请查看travis-ci log\n' + str(e)
+        sys.exit(1)
 
     # 发送邮件
-    # print('邮件内容')
-    # print(mailtitle)
-    # print(mailcontent)
     SendEmail.send_mail(mailtitle, mailcontent)
     print('任务结束')
