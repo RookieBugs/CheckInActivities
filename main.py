@@ -76,5 +76,5 @@ if __name__=='__main__':
 
     # 发送邮件
     SendEmail.send_mail(mailtitle, mailcontent)
-    print('任务结束')
+    print('任务结束, exit code: ', exitCode)
     sys.exit(exitCode)
