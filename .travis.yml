@@ -7,6 +7,7 @@ python:
 script:
   - python3 test1.py
   - result=$?
+  - echo result
   - if [ result == "1" ];then
       echo 'No ok';
      else 
