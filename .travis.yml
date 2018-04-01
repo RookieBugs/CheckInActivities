@@ -9,5 +9,5 @@ script:
   - if [ $? == 1 ];then
       python3 main.py;
      else 
-      echo "OK"
+      echo "OK";
     fi;
