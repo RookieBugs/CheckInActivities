@@ -5,9 +5,9 @@ python:
 install: "pip install -r requirements.txt"
 # command to run tests
 script:
-  - python3 main.py
-  - if [ $? == 0 ];then
-      exit 0;
+  - python3 test1.py
+  - if [ $? == 1 ];then
+      python3 test2.py;
     else
-      python3 main.py;
+      python3 test1.py;
     fi;
