@@ -6,8 +6,9 @@ install: "pip install -r requirements.txt"
 # command to run tests
 script:
   - python3 test2.py
+  - result = $?
   - if [ $? == "1" ];then
       echo 'No ok';
      else 
       echo "OK";
-    fi;
+    fi
