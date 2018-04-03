@@ -1,8 +1,8 @@
 # CheckInActivities
 [![Build Status](https://www.travis-ci.org/RookieBugs/CheckInActivities.svg?branch=master)](https://www.travis-ci.org/RookieBugs/CheckInActivities)
 
-#daily check-in of some application：<br>
+# daily check-in of some application：<br>
 <br>
->>ChinaUnicom APP;<br>
->>NetEase Cloudmusic;<br>
->>SMZDM.<br>
+* ChinaUnicom APP;<br>
+* NetEase Cloudmusic;<br>
+* SMZDM.<br>
