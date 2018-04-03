@@ -27,7 +27,10 @@ SMZDMsess = os.getenv('SMZDM_sess')
 def unicomCheckin():
     unicom = ChinaUnicomApp()
     loginFlag, loginContent = unicom.login_CU(mobile, mobilepwd)
-    signininFlag, signinContent = unicom.signin_CU()
+    if loginFlag == 1:
+        _, signinContent = unicom.signin_CU()
+    else:
+        signinContent = ''
     mailcontent_CU = loginContent + signinContent + '\n\n'
     return mailcontent_CU
 
