@@ -56,14 +56,25 @@ class ChinaUnicomApp:
         }
 
         login_url = 'http://m.client.10010.com/mobileService/login.htm'
-        login_req = self.session.post(login_url, headers=self.headers, data=self.data)
-        if login_req.json()['code'] == '0':
-            content_login = cur_time1 + ' 联通APP签到：\n'
-            return True, content_login
-        else:
-            print(cur_time1 + ' 联通APP登陆失败...')
-            content_login = cur_time1 + '  自动签到任务失败\n' + '错误原因：APP登陆失败...\n'
-            return False, content_login
+        # Host 请求尝试次数
+        n = 2
+        while n:
+            try:
+                login_req = self.session.post(login_url, headers=self.headers, data=self.data)
+                if login_req.json()['code'] == '0':
+                    content_login = cur_time1 + ' 联通APP签到：\n'
+                    return 1, content_login
+                else:
+                    print(cur_time1 + ' 联通APP登陆失败...')
+                    content_login = cur_time1 + '  自动签到任务失败\n' + '错误原因：APP登陆失败...\n'
+                    return 0, content_login
+            except:
+                time.sleep(5)
+                n -= 1
+                print('尝试重复请求...')
+                continue
+        content_login = cur_time1 + '  自动签到任务失败\n' + '错误原因：二次 Host 请求失败...\n'
+        return -1, content_login
 
     def signin_CU(self):
         try:
