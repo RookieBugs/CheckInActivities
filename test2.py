@@ -4,4 +4,4 @@ import sys
 
 print('world')
 
-sys.exit(0)
+sys.exit(1)
