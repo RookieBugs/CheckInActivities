@@ -6,7 +6,7 @@ python:
 # command to run tests
 script:
   - python3 test1.py;export result=$?
-  - if [ result == 1 ];then
+  - if [ ${result} == 1 ];then
       echo 'No ok';
      else 
       echo "OK";
