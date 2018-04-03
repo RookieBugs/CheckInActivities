@@ -3,6 +3,6 @@
 
 # daily check-in of some application：<br>
 <br>
-* ChinaUnicom APP;<br>
-* NetEase Cloudmusic;<br>
-* SMZDM.<br>
+*ChinaUnicom APP;<br>
+*NetEase Cloudmusic;<br>
+*SMZDM.<br>
