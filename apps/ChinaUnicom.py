@@ -150,7 +150,7 @@ class ChinaUnicomApp:
         deinsec = self.session.post(url=deinsec_url, headers=self.headers)
         deinsecStates = deinsec.json()['addedValue']
 
-        content = "{} 沃之树：\n    浇水：{}次\n    除草：{}次\n    除虫：{}次\n".format(
+        content = "\n{} 沃之树：\n    浇水：{}次\n    除草：{}次\n    除虫：{}次\n".format(
             cur_time, wateringStates, weedStates, deinsecStates)
         print(content)
         return 1, content
