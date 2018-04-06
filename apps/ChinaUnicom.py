@@ -33,8 +33,13 @@ class ChinaUnicomApp:
             'Accept-Language': 'zh-cn',
             'Accept-Encoding': 'gzip, deflate',
         }
+        self.token = ''
+        self.phoneNum = ''
+        self.areaCode = ''
+        
 
     def login_CU(self, username, password):
+        self.phoneNum = username
         username_CU = b64encode(rsa_encrypt_CU(pubKey_CU, pad_randomstr_CU(username, size=6)))
         password_CU = b64encode(rsa_encrypt_CU(pubKey_CU, pad_randomstr_CU(password, size=6)))
         cur_time1 = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
@@ -62,13 +67,16 @@ class ChinaUnicomApp:
             try:
                 login_req = self.session.post(login_url, headers=self.headers, data=self.data)
                 if login_req.json()['code'] == '0':
+                    self.token = self.session.cookies.get('a_token', '')
+                    self.areaCode = self.session.cookies.get('u_areaCode', '')
                     content_login = cur_time1 + ' 联通APP签到：\n'
                     return 1, content_login
                 else:
                     print(cur_time1 + ' 联通APP登陆失败...')
                     content_login = cur_time1 + '  自动签到任务失败\n' + '错误原因：APP登陆失败...\n'
                     return 0, content_login
-            except:
+            except Exception as err:
+                print(err)
                 time.sleep(5)
                 n -= 1
                 print('尝试重复请求...')
@@ -113,4 +121,36 @@ class ChinaUnicomApp:
             print(cur_time2 + ' APP签到失败...\n失败原因：' + str(err))
             content_signin = 'APP签到失败' + str(err)
             return False, content_signin
+          
+    def woTree(self):
+        times = time.strftime("%Y%m%d%H%M%S", time.localtime())
+        cur_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        self.headers['Host'] = 'm.client.10010.com'
+        getAct_url = 'http://m.client.10010.com/mactivity/arborday/index'  # GET
+        getAct = self.session.get(url=getAct_url, headers=self.headers)
+        # TODO 分析html中的 <div class="jingyanzhi">
 
+        data = {
+            'url': getAct_url,
+            'serviceCode': 'takeActivityInfo',
+            'channel': 'mobileClient',
+            'city': self.areaCode,
+            'transId': times,
+            'phoneNum': self.phoneNum,
+        }
+        takeAct_url = 'http://m.client.10010.com/freegift-interface/appUrlShare/takeActivityInfo'  # POST
+        takeAct = self.session.post(url=takeAct_url, headers=self.headers, data=data)
+        watering_url = 'http://m.client.10010.com/mactivity/arborday/arbor/1/0/1/grow'  # POST
+        weed_url = 'http://m.client.10010.com/mactivity/arborday/arbor/1/1/1/grow'
+        deinsec_url = 'http://m.client.10010.com/mactivity/arborday/arbor/1/2/1/grow'
+        watering = self.session.post(url=watering_url, headers=self.headers)
+        wateringStates = watering .json()['addedValue']
+        weed = self.session.post(url=weed_url, headers=self.headers)
+        weedStates = weed.json()['addedValue']
+        deinsec = self.session.post(url=deinsec_url, headers=self.headers)
+        deinsecStates = deinsec.json()['addedValue']
+
+        content = "{} 沃之树：\n    浇水：{}次\n    除草：{}次\n    除虫：{}次\n".format(
+            cur_time, wateringStates, weedStates, deinsecStates)
+        print(content)
+        return 1, content
