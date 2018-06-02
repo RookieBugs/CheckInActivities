@@ -108,7 +108,7 @@ class ChinaUnicomApp:
             # 获取总金币
             gold_url = 'http://act.10010.com/SigninApp/signin/goldTotal.do'
             gold_req = self.session.post(url=gold_url)
-            totalCoin = gold_req.json()['goldTotal']
+            totalCoin = gold_req.json()#['goldTotal']
             # 获取签到历史
             querySignin_url = 'http://act.10010.com/SigninApp/mySignin/querySignin.do'
             querySignin_req = self.session.post(url=querySignin_url)
